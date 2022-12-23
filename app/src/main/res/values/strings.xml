@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">LotteryChecker</string>
+    <string name="unknow_host_exception_error">No hay conexión a internet</string>
+    <string name="unknow_error">Error desconocido</string>
+    <string name="title_activity_compose_main">ComposeMainActivity</string>
+    <string name="title_activity_shop_detail_compose">ShopDetailComposeActivity</string>
+    <string name="unknow_error_2">Error desconocido 2</string>
+    <string name="information">Información</string>
+    <string name="permission_request">Es necesario para el correcto funcionamiento de la app</string>
 </resources>
