@@ -15,6 +15,8 @@ fun String.formatDate() = toDateString(this)
 
 fun String.numberResponse() = toNumberResponse(this)
 
+fun String.isNumeric() = checkIsNumeric(this)
+
 fun String?.validate(value: String = ""): String {
     return this ?: value
 }
@@ -36,8 +38,8 @@ private fun toString(str: String): String {
 }
 
 private fun toDateString(str: String): String {
-    val parser = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-    val formatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+    val parser = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+    val formatter = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
 
     return formatter.format(parser.parse(str)!!)
 }
@@ -50,4 +52,8 @@ private fun toNumberResponse(str: String): NumberResponse? {
         Log.e("AppConstants.TAG", e.message.toString())
         null
     }
+}
+
+fun checkIsNumeric(str: String): Boolean {
+    return str.toDoubleOrNull() != null
 }
