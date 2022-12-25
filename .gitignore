@@ -36,3 +36,6 @@ output.json
 #NDK
 obj/
 .externalNativeBuild
+
+
+app/src/main/res/values/secrets.xml
