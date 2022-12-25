@@ -20,39 +20,44 @@ class NumberViewModel @Inject constructor(
     private val getNumberUseCase: GetNumbersUseCase,
     private val addNumberUseCase: AddNumberUseCase,
     private val removeNumberUseCase: RemoveNumberUseCase
-) :
-    ViewModel() {
+) : ViewModel() {
 
     private val _number = MutableLiveData<com.albertomier.lotterychecker.domain.model.Number>()
     val number: LiveData<com.albertomier.lotterychecker.domain.model.Number> get() = _number
 
-    private val _numberList = MutableLiveData<List<com.albertomier.lotterychecker.domain.model.Number>>()
+    private val _numberList =
+        MutableLiveData<List<com.albertomier.lotterychecker.domain.model.Number>>()
     val numberList: LiveData<List<com.albertomier.lotterychecker.domain.model.Number>> get() = _numberList
 
     private val _status = MutableLiveData<ApiResponseStatus<Any>>()
     val status: LiveData<ApiResponseStatus<Any>> get() = _status
 
+    private val _loading = MutableLiveData<Boolean>()
+    val loading: LiveData<Boolean> get() = _loading
+
     fun checkNumber(number: String) {
         viewModelScope.launch {
             _status.value = ApiResponseStatus.Loading()
             handleResponseStatus(checkNumberUseCase(number))
-            getNumbers()
         }
     }
 
     fun getNumbers() {
         viewModelScope.launch {
-            //_status.value = ApiResponseStatus.Loading()
-            handleResponseListStatus(getNumberUseCase())
+            _loading.value = true
+
+            Log.e("TAG", "Call getNumbers(): start")
+            val result = getNumberUseCase()
+
+            _numberList.value = result
+            _loading.value = false
         }
     }
 
     fun addNumber(number: String) {
         viewModelScope.launch {
-            Log.e("TAG RESPONSEE",number)
             addNumberUseCase(number)
-            //checkNumber(number)
-            //handleResponseListStatus(getNumberUseCase())
+            getNumbers()
         }
     }
 
@@ -63,22 +68,11 @@ class NumberViewModel @Inject constructor(
         }
     }
 
-    @Suppress("UNCHECKED_CAST")
     private fun handleResponseStatus(responseStatus: ApiResponseStatus<com.albertomier.lotterychecker.domain.model.Number>) {
         if (responseStatus is ApiResponseStatus.Success) {
             _number.value = responseStatus.data
         }
 
         _status.value = responseStatus as ApiResponseStatus<Any>
-    }
-
-    @Suppress("UNCHECKED_CAST")
-    private fun handleResponseListStatus(responseStatus: List<com.albertomier.lotterychecker.domain.model.Number>) {
-        //if (responseStatus is ApiResponseStatus.Success) {
-        Log.e("TAGGGG", responseStatus.toString())
-            _numberList.value = responseStatus
-       // }
-
-        //_status.value = responseStatus as ApiResponseStatus<Any>
     }
 }

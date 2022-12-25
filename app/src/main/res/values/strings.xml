@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">LotteryChecker</string>
+    <string name="app_name">Lottery Checker</string>
     <string name="unknow_host_exception_error">No hay conexión a internet</string>
     <string name="unknow_error">Error desconocido</string>
     <string name="title_activity_compose_main">ComposeMainActivity</string>

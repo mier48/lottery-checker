@@ -1,6 +1,5 @@
 package com.albertomier.lotterychecker.data
 
-import android.util.Log
 import com.albertomier.lotterychecker.data.database.dao.AppDao
 import com.albertomier.lotterychecker.data.database.entities.toDatabase
 import com.albertomier.lotterychecker.data.network.ApiResponseStatus
@@ -27,7 +26,7 @@ class AppRepository @Inject constructor(
     suspend fun getNumbers(): List<com.albertomier.lotterychecker.domain.model.Number> {
         val response = appDao.getNumbers()
 
-        return response.map{ it.toDomain() }
+        return response.map { it.toDomain() }
     }
 
     suspend fun addNumber(number: com.albertomier.lotterychecker.domain.model.Number) =
