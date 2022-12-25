@@ -47,10 +47,10 @@ class NumberViewModel @Inject constructor(
         }
     }
 
-    fun addNumber(number: String, prize: Int, timestamp: Int, status: Int, error: Int) {
+    fun addNumber(number: String) {
         viewModelScope.launch {
             Log.e("TAG RESPONSEE",number)
-            addNumberUseCase(number, prize, timestamp, status, error)
+            addNumberUseCase(number)
             //checkNumber(number)
             //handleResponseListStatus(getNumberUseCase())
         }

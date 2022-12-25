@@ -57,16 +57,17 @@ class CameraActivity : ComponentActivity() {
 
     private var shouldShowCamera: MutableState<Boolean> = mutableStateOf(false)
 
-    private lateinit var photoUri: Uri
+    //private lateinit var photoUri: Uri
+    private lateinit var capturedImage: ImageProxy
     private var shouldShowPhoto: MutableState<Boolean> = mutableStateOf(false)
 
     private val viewModel: NumberViewModel by viewModels()
 
-    private fun handleImageCapture(uri: Uri) {
-        Log.i("kilo", "Image captured: $uri")
+    private fun handleImageCapture(image: ImageProxy) {
+        //Log.i("kilo", "Image captured: $uri")
         shouldShowCamera.value = false
 
-        photoUri = uri
+        capturedImage = image
         shouldShowPhoto.value = true
     }
 
@@ -102,7 +103,7 @@ class CameraActivity : ComponentActivity() {
             }
             if (shouldShowPhoto.value) {
                 Image(
-                    painter = rememberImagePainter(photoUri),
+                    painter = rememberImagePainter(capturedImage),
                     contentDescription = null,
                     modifier = Modifier.fillMaxSize()
                 )
@@ -125,9 +126,9 @@ class CameraActivity : ComponentActivity() {
                     confirmButton = {
                         Button(onClick = {
                             openDialog.value = false
-                            viewModel.addNumber(numberScan.value, 0, 0, 0, 0)
-                            viewModel.checkNumber(numberScan.value)
-                            finish()
+                            viewModel.addNumber(numberScan.value)
+                            //viewModel.checkNumber(numberScan.value)
+                            //finish()
                         }) { Text("Si") }
                     },
                     dismissButton = {
@@ -181,7 +182,7 @@ class CameraActivity : ComponentActivity() {
         imageCapture: ImageCapture,
         outputDirectory: File,
         executor: Executor,
-        onImageCaptured: (Uri) -> Unit,
+        onImageCaptured: (ImageProxy) -> Unit,
         onError: (ImageCaptureException) -> Unit
     ) {
 
@@ -224,6 +225,9 @@ class CameraActivity : ComponentActivity() {
                     val image = FirebaseVisionImage.fromMediaImage(mediaImage, 0)
 
                     val detector = FirebaseVision.getInstance().onDeviceTextRecognizer
+
+
+                    //onImageCaptured(img)
 
                     val result =
                         detector.processImage(image)
@@ -272,7 +276,7 @@ class CameraActivity : ComponentActivity() {
     fun CameraView(
         outputDirectory: File,
         executor: Executor,
-        onImageCaptured: (Uri) -> Unit,
+        onImageCaptured: (ImageProxy) -> Unit,
         onError: (ImageCaptureException) -> Unit
     ) {
         // 1
