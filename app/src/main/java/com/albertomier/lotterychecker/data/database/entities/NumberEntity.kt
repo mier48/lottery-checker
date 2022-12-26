@@ -1,5 +1,6 @@
 package com.albertomier.lotterychecker.data.database.entities
 
+import android.graphics.Bitmap
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Index
@@ -14,6 +15,7 @@ data class NumberEntity(
     @ColumnInfo(name = "timestamp") var timestamp: Int,
     @ColumnInfo(name = "status") var status: Int,
     @ColumnInfo(name = "error") var error: Int,
+    @ColumnInfo(name = "image") var image: String?,
     @ColumnInfo(name = "created_at") var createdAt: String
 )
 
@@ -24,5 +26,6 @@ fun com.albertomier.lotterychecker.domain.model.Number.toDatabase() =
         timestamp = timestamp,
         status = status,
         error = error,
+        image = image,
         createdAt = createdAt
     )

@@ -2,6 +2,7 @@ package com.albertomier.lotterychecker.data.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.albertomier.lotterychecker.data.database.dao.AppDao
 import com.albertomier.lotterychecker.data.database.entities.NumberEntity
 

@@ -1,12 +1,16 @@
-package com.albertomier.lotterychecker.ui
+package com.albertomier.lotterychecker.ui.view
 
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.camera.core.ExperimentalGetImage
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -20,18 +24,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.text.style.TextDirection
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
@@ -266,20 +265,24 @@ fun ListComponent(
         color = Color(0xFF33FF00)
     }
 
+    val image: Bitmap? = BitmapFactory.decodeFile(item.image)
+
     Row(
         modifier = Modifier
             .padding(bottom = 22.dp, start = 16.dp, end = 16.dp)
             .height(110.dp),
         content = {
-            AsyncImage(
-                model = "https://picsum.photos/1500",
-                contentScale = ContentScale.FillBounds,
-                contentDescription = null,
-                modifier = Modifier
-                    .clip(12.radius())
-                    .width(150.dp)
-                    .fillMaxSize()
-            )
+            if (!item.image.isNullOrEmpty()) {
+                Image(
+                    bitmap = image!!.asImageBitmap(),
+                    contentScale = ContentScale.FillBounds,
+                    contentDescription = null,
+                    modifier = Modifier
+                        .clip(12.radius())
+                        .width(150.dp)
+                        .fillMaxSize()
+                )
+            }
             10.Width()
             Column(
                 verticalArrangement = Arrangement.SpaceBetween,
@@ -338,17 +341,6 @@ fun ListComponent(
 
 @Composable
 fun BannerAdView(modifier: Modifier = Modifier) {
-//    Column {
-//        Text(
-//            modifier = modifier
-//                .fillMaxWidth()
-//                .background(Red)
-//                .padding(horizontal = 2.dp, vertical = 6.dp),
-//            textAlign = TextAlign.Center,
-//            color = White,
-//            text = "Advert Here",
-//        )
-
     AndroidView(modifier = modifier.fillMaxWidth(), factory = { context ->
         AdView(context).apply {
             setAdSize(AdSize.BANNER)
@@ -356,115 +348,4 @@ fun BannerAdView(modifier: Modifier = Modifier) {
             loadAd(AdRequest.Builder().build())
         }
     })
-//    }
-}
-
-@Composable
-fun boldTextStyle(
-    color: Color = MaterialTheme.colors.onPrimary,
-    fontSize: TextUnit = Size.textBoldSizeGlobal,
-    fontWeight: FontWeight? = Style.fontWeightBoldGlobal,
-    fontStyle: FontStyle? = FontStyle.Normal,
-    fontFamily: FontFamily? = FontFamily(Font(R.font.dmsansbold)),
-    letterSpacing: TextUnit = TextUnit.Unspecified,
-    background: Color = Color.Unspecified,
-    textDecoration: TextDecoration? = TextDecoration.None,
-    textAlign: TextAlign? = TextAlign.Start,
-    textDirection: TextDirection? = null,
-    lineHeight: TextUnit = TextUnit.Unspecified,
-): TextStyle {
-    return TextStyle(
-        color = color,
-        fontSize = fontSize,
-        fontWeight = fontWeight,
-        fontStyle = fontStyle,
-        fontFamily = fontFamily,
-        letterSpacing = letterSpacing,
-        background = background,
-        textDecoration = textDecoration,
-        textAlign = textAlign,
-        textDirection = textDirection,
-        lineHeight = lineHeight,
-    )
-}
-
-// Primary text style method
-@Composable
-fun primaryTextStyle(
-    color: Color = MaterialTheme.colors.onPrimary,
-    fontSize: TextUnit = Size.textPrimarySizeGlobal,
-    fontWeight: FontWeight? = Style.fontWeightPrimaryGlobal,
-    fontStyle: FontStyle? = FontStyle.Normal,
-    fontFamily: FontFamily? = FontFamily(Font(R.font.dmsansregular)),
-    letterSpacing: TextUnit = TextUnit.Unspecified,
-    background: Color = Color.Unspecified,
-    textDecoration: TextDecoration? = TextDecoration.None,
-    textAlign: TextAlign? = TextAlign.Start,
-    textDirection: TextDirection? = null,
-    lineHeight: TextUnit = TextUnit.Unspecified,
-): TextStyle {
-    return TextStyle(
-        color = color,
-        fontSize = fontSize,
-        fontWeight = fontWeight,
-        fontStyle = fontStyle,
-        fontFamily = fontFamily,
-        letterSpacing = letterSpacing,
-        background = background,
-        textDecoration = textDecoration,
-        textAlign = textAlign,
-        textDirection = textDirection,
-        lineHeight = lineHeight,
-    )
-}
-
-/* Secondary text style method */
-@Composable
-fun secondaryTextStyle(
-    color: Color = MaterialTheme.colors.onSecondary,
-    fontSize: TextUnit = Size.textSecondarySizeGlobal,
-    fontWeight: FontWeight? = Style.fontWeightSecondaryGlobal,
-    fontStyle: FontStyle? = FontStyle.Normal,
-    fontFamily: FontFamily? = FontFamily(Font(R.font.dmsansregular)),
-    letterSpacing: TextUnit = TextUnit.Unspecified,
-    background: Color = Color.Unspecified,
-    textDecoration: TextDecoration? = TextDecoration.None,
-    textAlign: TextAlign? = TextAlign.Start,
-    textDirection: TextDirection? = null,
-    lineHeight: TextUnit = TextUnit.Unspecified,
-): TextStyle {
-    return TextStyle(
-        color = color,
-        fontSize = fontSize,
-        fontWeight = fontWeight,
-        fontStyle = fontStyle,
-        fontFamily = fontFamily,
-        letterSpacing = letterSpacing,
-        background = background,
-        textDecoration = textDecoration,
-        textAlign = textAlign,
-        textDirection = textDirection,
-        lineHeight = lineHeight,
-    )
-}
-
-object Size {
-    var textBoldSizeGlobal = 16.0.sp
-    var textPrimarySizeGlobal = 16.0.sp
-    var textSecondarySizeGlobal = 14.0.sp
-}
-
-object Style {
-    var fontWeightBoldGlobal: FontWeight = FontWeight.Bold
-    var fontWeightPrimaryGlobal: FontWeight = FontWeight.Normal
-    var fontWeightSecondaryGlobal: FontWeight = FontWeight.Normal
-}
-
-object TextColor {
-    val textPrimaryColor = Color(0xFF2E3033)
-    val textSecondaryColor = Color(0xFF757575)
-    val textPrimaryLightColor = Color(0xFF212121)
-    val textPrimaryDarkColor = Color(0xFFFFFFFF)
-    val textSecondaryLightColor = Color(0xFF5A5C5E)
-    val textSecondaryDarkColor = Color(0x8AFFFFFF)
 }

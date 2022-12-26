@@ -1,5 +1,7 @@
 package com.albertomier.lotterychecker.domain
 
+import android.graphics.Bitmap
+import androidx.compose.ui.graphics.ImageBitmap
 import com.albertomier.lotterychecker.data.AppRepository
 import com.albertomier.lotterychecker.data.network.ApiResponseStatus
 import com.albertomier.lotterychecker.domain.model.Number
@@ -10,7 +12,8 @@ import javax.inject.Inject
 class AddNumberUseCase @Inject constructor(private val repository: AppRepository) {
 
     suspend operator fun invoke(
-        number: String
+        number: String,
+        image: String
     ) {
         val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
         val createdAt: String = sdf.format(Date())
@@ -21,7 +24,7 @@ class AddNumberUseCase @Inject constructor(private val repository: AppRepository
             val data: Number = result.data
 
             val numberModel =
-                Number(number, data.prize, data.timestamp, data.status, data.error, createdAt)
+                Number(number, data.prize, data.timestamp, data.status, data.error, image, createdAt)
 
             repository.addNumber(numberModel)
         }

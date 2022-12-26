@@ -7,10 +7,11 @@ import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 import com.albertomier.lotterychecker.core.utils.ColorPallet
-import com.albertomier.lotterychecker.ui.TextColor.textPrimaryDarkColor
-import com.albertomier.lotterychecker.ui.TextColor.textPrimaryLightColor
-import com.albertomier.lotterychecker.ui.TextColor.textSecondaryDarkColor
-import com.albertomier.lotterychecker.ui.TextColor.textSecondaryLightColor
+import com.albertomier.lotterychecker.core.utils.TextColor.textPrimaryDarkColor
+import com.albertomier.lotterychecker.core.utils.TextColor.textPrimaryLightColor
+import com.albertomier.lotterychecker.core.utils.TextColor.textSecondaryDarkColor
+import com.albertomier.lotterychecker.core.utils.TextColor.textSecondaryLightColor
+
 
 @SuppressLint("ConflictingOnColor")
 private val DarkGreenColorPalette = darkColors(

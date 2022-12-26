@@ -1,4 +1,4 @@
-package com.albertomier.lotterychecker.ui
+package com.albertomier.lotterychecker.ui.view
 
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.ml.vision.FirebaseVision

@@ -1,5 +1,6 @@
 package com.albertomier.lotterychecker.domain.model
 
+import android.graphics.Bitmap
 import android.os.Parcelable
 import com.albertomier.lotterychecker.data.database.entities.NumberEntity
 import com.albertomier.lotterychecker.data.model.NumberResponse
@@ -12,6 +13,7 @@ data class Number(
     val timestamp: Int,
     val status: Int,
     val error: Int,
+    val image: String?,
     val createdAt: String
 ) : Parcelable {
 
@@ -24,6 +26,7 @@ fun NumberResponse.toDomain() =
         timestamp,
         status,
         error,
+        null,
         ""
     )
 
@@ -34,5 +37,6 @@ fun NumberEntity.toDomain() =
         timestamp,
         status,
         error,
+        image,
         createdAt
     )
