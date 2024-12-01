@@ -17,9 +17,6 @@
 ## Tecnologías Utilizadas
 
 - **Lenguaje**: Kotlin
-- **Frameworks**:
-  - Ktor o Spring Boot (para futuras integraciones con APIs externas).
-- **Bibliotecas**: OpenCV o similar (para reconocimiento de texto en imágenes).
 - **Herramientas de Construcción**: Gradle
 
 ## Instalación
@@ -28,8 +25,6 @@
 
 1. **JDK 11 o superior**: Asegúrate de tener instalado Java Development Kit (JDK).
 2. **Gradle**: Para gestionar dependencias.
-3. **Dependencias adicionales**:
-   - OpenCV o una biblioteca de OCR como Tesseract.
 
 ### Pasos de Instalación
 
